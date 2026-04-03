@@ -14,70 +14,84 @@
     <title>Open Facts</title>
   </head>
   <body>
-    <header>
-      <img src="logo.png" height="68" width="68" alt="Open Facts Logo" />
-      <h1>Open Facts</h1>
-      <button>Share a fact</button>
-    </header>
+    <div class="container">
+      <header class="header">
+        <div class="logo">
+          <img src="logo.png" alt="Open Facts Logo" />
+          <h1>Open Facts</h1>
+        </div>
+        <button class="btn">Share a fact</button>
+      </header>
 
-    <form class="fact-form">
-      <input type="text" placeholder="Share a fact with the world..." />
-      <span>200</span>
-      <input type="text" placeholder="Trustworthy source" />
-      <select>
-        <option value="">Choose a category</option>
-        <option value="technology">Technology</option>
-        <option value="science">Science</option>
-        <option value="society">Society</option>
-      </select>
-      <button type="submit">Post</button>
-    </form>
+      <form class="fact-form">
+        <input type="text" placeholder="Share a fact with the world..." />
+        <span>200</span>
+        <input type="text" placeholder="Trustworthy source" />
+        <select>
+          <option value="">Choose a category</option>
+          <option value="technology">Technology</option>
+          <option value="science">Science</option>
+          <option value="society">Society</option>
+        </select>
+        <button type="submit">Post</button>
+      </form>
 
-    <main>
-      <aside>
-        <ul>
-          <li><button>All</button></li>
-          <li><button>Technology</button></li>
-          <li><button>Science</button></li>
-        </ul>
-      </aside>
+      <main class="main">
+        <aside>
+          <ul>
+            <li><button class="btn">All</button></li>
+            <li><button class="btn">Technology</button></li>
+            <li><button class="btn">Science</button></li>
+          </ul>
+        </aside>
 
-      <section>
-        <ul>
-          <li class="fact">
-            <p>
-              React is being developed by Meta (formerly facebook)
-              <a href="https://opensource.fb.com/" target="_blank">(Source)</a>
-              <span class="tag">#technology#</span>
-            </p>
-            <div>
-              <button>👍 <strong>24 </strong></button>
-              <button>🤯 <strong>9 </strong></button>
-              <button>⛔️ <strong>4 </strong></button>
-            </div>
-          </li>
-
-          <li class="fact">
-            <p>
-              Millennial dads spend 3 times as much time with their kids than
-              their fathers spent with them. In 1982, 43% of fathers had never
-              changed a diaper. Today, that number is down to 3%
-              <a
-                href="https://www.mother.ly/parenting/millennial-dads-spend-more-time-with-their-kids"
-                target="_blank"
+        <section>
+          <ul>
+            <li class="fact">
+              <p>
+                React is being developed by Meta (formerly facebook)
+                <a
+                  class="source"
+                  href="https://opensource.fb.com/"
+                  target="_blank"
+                  >(Source)</a
+                >
+              </p>
+              <span class="tag" style="background-color: #93c5fd"
+                >#technology#</span
               >
-                (Source)
-              </a>
-              <span class="tag">#society#</span>
-            </p>
-            <div>
-              <button>👍 <strong>11 </strong></button>
-              <button>🤯 <strong>2 </strong></button>
-              <button>⛔️ <strong>0 </strong></button>
-            </div>
-          </li>
-        </ul>
-      </section>
-    </main>
+              <div class="vote-buttons">
+                <button>👍 <strong>24 </strong></button>
+                <button>🤯 <strong>9 </strong></button>
+                <button>⛔️ <strong>4 </strong></button>
+              </div>
+            </li>
+
+            <li class="fact">
+              <p>
+                Millennial dads spend 3 times as much time with their kids than
+                their fathers spent with them. In 1982, 43% of fathers had never
+                changed a diaper. Today, that number is down to 3%
+                <a
+                  class="source"
+                  href="https://www.mother.ly/parenting/millennial-dads-spend-more-time-with-their-kids"
+                  target="_blank"
+                >
+                  (Source)
+                </a>
+              </p>
+              <span class="tag" style="background-color: #fde047"
+                >#society#</span
+              >
+              <div class="vote-buttons">
+                <button>👍 <strong>11 </strong></button>
+                <button>🤯 <strong>2 </strong></button>
+                <button>⛔️ <strong>0 </strong></button>
+              </div>
+            </li>
+          </ul>
+        </section>
+      </main>
+    </div>
   </body>
 </html>
