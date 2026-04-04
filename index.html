@@ -20,7 +20,7 @@
           <img src="logo.png" alt="Open Facts Logo" />
           <h1>Open Facts</h1>
         </div>
-        <button class="btn">Share a fact</button>
+        <button class="btn btn-large">Share a fact</button>
       </header>
 
       <form class="fact-form">
@@ -33,15 +33,31 @@
           <option value="science">Science</option>
           <option value="society">Society</option>
         </select>
-        <button type="submit">Post</button>
+        <button class="btn btn-large">Post</button>
       </form>
 
       <main class="main">
         <aside>
           <ul>
-            <li><button class="btn">All</button></li>
-            <li><button class="btn">Technology</button></li>
-            <li><button class="btn">Science</button></li>
+            <li class="category">
+              <button class="btn btn-all-categories">All</button>
+            </li>
+            <li class="category">
+              <button
+                class="btn btn-category"
+                style="background-color: #93c5fd"
+              >
+                Technology
+              </button>
+            </li>
+            <li class="category">
+              <button
+                class="btn btn-category"
+                style="background-color: #86efac"
+              >
+                Science
+              </button>
+            </li>
           </ul>
         </aside>
 
@@ -58,7 +74,7 @@
                 >
               </p>
               <span class="tag" style="background-color: #93c5fd"
-                >#technology#</span
+                >technology</span
               >
               <div class="vote-buttons">
                 <button>👍 <strong>24 </strong></button>
@@ -80,9 +96,7 @@
                   (Source)
                 </a>
               </p>
-              <span class="tag" style="background-color: #fde047"
-                >#society#</span
-              >
+              <span class="tag" style="background-color: #fde047">society</span>
               <div class="vote-buttons">
                 <button>👍 <strong>11 </strong></button>
                 <button>🤯 <strong>2 </strong></button>
