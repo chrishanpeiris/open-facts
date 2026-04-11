@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { supabase } from "./supabase.js";
 import "./style.css";
 
 const CATEGORIES = [
@@ -45,30 +47,130 @@ const initialFacts = [
   },
 ];
 
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <span style={{ fontSize: "40px" }}>{count}</span>
+      <button className="btn btn-large" onClick={() => setCount((c) => c + 1)}>
+        +1
+      </button>
+    </div>
+  );
+}
+
 function App() {
-  const appTitle = "Open Facts";
+  const [showForm, setShowForm] = useState(false);
+  const [facts, setFacts] = useState(initialFacts);
 
   return (
     <>
-      {/* Header */}
-      <header className="header">
-        <div className="logo">
-          <img src="logo.png" alt="Open Facts Logo" />
-          <h1>{appTitle}</h1>
-        </div>
-        <button className="btn btn-large btn-open">Share a fact</button>
-      </header>
-      <NewFactForm />
+      <Header showForm={showForm} setShowForm={setShowForm} />
+
+      {showForm ? (
+        <NewFactForm setFacts={setFacts} setShowForm={setShowForm} />
+      ) : null}
+
       <main className="main">
         <CategoryFilter />
-        <FactList />
+        <FactList facts={facts} />
       </main>
     </>
   );
 }
 
-function NewFactForm() {
-  return <form className="fact-form">Fact Form</form>;
+function Header({ showForm, setShowForm }) {
+  const appTitle = "Open Facts";
+  return (
+    <header className="header">
+      <div className="logo">
+        <img src="logo.png" alt="Open Facts Logo" />
+        <h1>{appTitle}</h1>
+      </div>
+      <button
+        className="btn btn-large btn-open"
+        onClick={() => setShowForm((show) => !show)}
+      >
+        {showForm ? "Close" : "Share a fact"}
+      </button>
+    </header>
+  );
+}
+
+function isValidHttpUrl(string) {
+  try {
+    const newUrl = new URL(string);
+    return newUrl.protocol === "http:" || newUrl.protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
+function NewFactForm({ setFacts, setShowForm }) {
+  const [text, setText] = useState("");
+  const [source, setSource] = useState("https://example.com");
+  const [category, setCategory] = useState("");
+  const textLength = text.length;
+
+  function handleSubmit(e) {
+    // 1 Prevent browser reload
+    e.preventDefault();
+    console.log(text, source, category);
+
+    // 2 Validate data
+    if (text && isValidHttpUrl(source) && category && textLength <= 200) {
+      // 3 Create a new fact object
+      const newFact = {
+        id: Math.round(Math.random() * 1000000),
+        text,
+        source,
+        category,
+        votesInteresting: 0,
+        votesMindblowing: 0,
+        votesFalse: 0,
+        createdIn: new Date().getFullYear(),
+      };
+      // 4 Add the new fact to the UI
+      setFacts((prevFacts) => [newFact, ...prevFacts]);
+
+      // 5 Reset the input fields
+      setText("");
+      setSource("");
+      setCategory("");
+
+      // 6 Close the form
+      setShowForm(false);
+    }
+  }
+
+  return (
+    <form className="fact-form" onSubmit={handleSubmit}>
+      {" "}
+      <input
+        type="text"
+        placeholder="Share a fact with the world..."
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <span>{200 - textLength}</span>
+      <input
+        type="text"
+        placeholder="Trustworthy source"
+        value={source}
+        onChange={(e) => setSource(e.target.value)}
+      />
+      <select value={category} onChange={(e) => setCategory(e.target.value)}>
+        <option value="">Choose a category</option>
+        {CATEGORIES.map((cat) => (
+          <option key={cat.name} value={cat.name}>
+            {cat.name.toUpperCase()}
+          </option>
+        ))}
+      </select>
+      <button className="btn btn-large">Post</button>
+    </form>
+  );
 }
 
 function CategoryFilter() {
@@ -84,7 +186,7 @@ function CategoryFilter() {
               className="btn btn-category"
               style={{ backgroundColor: cat.color }}
             >
-              {cat.name}
+              {cat.name.toUpperCase()}
             </button>
           </li>
         ))}
@@ -93,9 +195,7 @@ function CategoryFilter() {
   );
 }
 
-function FactList() {
-  // Temporary
-  const facts = initialFacts;
+function FactList({ facts }) {
   return (
     <section>
       <ul className="facts-list">
